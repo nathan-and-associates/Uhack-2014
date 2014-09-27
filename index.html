@@ -11,20 +11,23 @@
     <script type="text/javascript" language="javascript">
         $(document).ready(function() {
 
-            $.getJSON('http://api.target.com/v2/products/11678018?idType=TCIN&key=J5PsS2XGuqCnkdQq0Let6RSfvU7oyPwF', function(jd) {
+            $.getJSON('http://api.target.com/v2/products/15203148?idType=TCIN&key=J5PsS2XGuqCnkdQq0Let6RSfvU7oyPwF', function(jd) {
                 $('#product_details').html('<p> Price: ' + jd.CatalogEntryView[0].Offers[0].OfferPrice[0].formattedPriceValue+ '</p>');
-                $('#product_image').html('<img src='+ jd.CatalogEntryView[0].Images[0].PrimaryImage[0].image+' class="img-responsive img-rounded"></img>');
-                $('#product_title').html('<h3>'+ jd.CatalogEntryView[0].ItemAttributes[0].Attribute[33].value+'</h3>');
+                $('#product_image').html('<img src='+ jd.CatalogEntryView[0].Images[0].PrimaryImage[0].image+' class="img-responsive img-rounded" width=200px></img>');
+                $('#product_title').html('<h3>'+ jd.CatalogEntryView[0].title+'</h3>');
+                $('#product_status').html('<p> Inventory Status: '+ jd.CatalogEntryView[0].inventoryStatus+'</p>');
             });
-            $.getJSON('http://api.target.com/v2/products/15718321?idType=TCIN&key=J5PsS2XGuqCnkdQq0Let6RSfvU7oyPwF', function(jd) {
+            $.getJSON('http://api.target.com/v2/products/15193400?idType=TCIN&key=J5PsS2XGuqCnkdQq0Let6RSfvU7oyPwF', function(jd) {
                 $('#product_2_details').html('<p>Price: ' + jd.CatalogEntryView[0].Offers[0].OfferPrice[0].formattedPriceValue+ '</p>');
-                $('#product_2_image').html('<img src='+ jd.CatalogEntryView[0].Images[0].PrimaryImage[0].image+' class="img-responsive img-rounded"></img>');
-                $('#product_2_title').html('<h3>'+ jd.CatalogEntryView[0].ItemAttributes[0].Attribute[33].value+'</h3>');
+                $('#product_2_image').html('<img src='+ jd.CatalogEntryView[0].Images[0].PrimaryImage[0].image+' class="img-responsive img-rounded" width=200px></img>');
+                $('#product_2_title').html('<h3>'+ jd.CatalogEntryView[0].title+ '</h3>');
+                $('#product_2_status').html('<p> Inventory Status: '+ jd.CatalogEntryView[0].inventoryStatus+'</p>');
             });
-            $.getJSON('http://api.target.com/v2/products/15718332?idType=TCIN&key=J5PsS2XGuqCnkdQq0Let6RSfvU7oyPwF', function(jd) {
+            $.getJSON('http://api.target.com/v2/products/15640379?idType=TCIN&key=J5PsS2XGuqCnkdQq0Let6RSfvU7oyPwF', function(jd) {
                 $('#product_3_details').html('<p>Price: ' + jd.CatalogEntryView[0].Offers[0].OfferPrice[0].formattedPriceValue+ '</p>');
-                $('#product_3_image').html('<img src='+ jd.CatalogEntryView[0].Images[0].PrimaryImage[0].image+' class="img-responsive img-rounded"></img>');
-                $('#product_3_title').html('<h3>'+ jd.CatalogEntryView[0].ItemAttributes[0].Attribute[33].value+'</h3>');
+                $('#product_3_image').html('<img src='+ jd.CatalogEntryView[0].Images[0].PrimaryImage[0].image+' class="img-responsive img-rounded" width=200px></img>');
+                $('#product_3_title').html('<h3>'+ jd.CatalogEntryView[0].title+'</h3>');
+                $('#product_3_status').html('<p> Inventory Status: '+ jd.CatalogEntryView[0].inventoryStatus+'</p>');
             });
         });
     </script>
@@ -32,11 +35,13 @@
 
 </head>
 <body>
+<div class="col-md-10">
 <img src="img/target_logo.jpg" alt="Target Logo" class="img-responsive" />
                          <br/>
 <div align="right">
 <ul class="nav nav-pills">
-    <li><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+    <li><a href="index.html" alt="Home Page"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+    <li><a href="search.html" alt="Search Page"><span class="glyphicon glyphicon-search"></span> Search</a></li>
     <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a></li>
     <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign in</a></li>
 </ul>
@@ -49,15 +54,32 @@
     </div>
     <button type="submit" class="btn btn-danger">Submit</button>
 </form>
+<script>
+    var search = document.getElementById("search");
+    var data = ["dresses", "dress", "shoes", "sandals", "shirts", "pants", "shorts"];
+
+    search.onclick = function() {
+        var formInput = document.getElementById("formInput").value;
+
+        for (i=0; i<data.length; i++){
+            if (data[i] == formInput) {
+                alert(data[i]);
+            } else {
+                alert("No products found.");
+            }
+        }
+    };
+</script>
 
 <table>
-    <!--<tr>
+    <tr>
         <td>
             <div id="product_image"></div>
         </td>
         <td>
             <div id="product_title"></div>
             <div id="product_details"></div>
+            <div id="product_status"></div>
             <button class="btn btn-danger">Add to Cart</button>
         </td>
     </tr>
@@ -68,6 +90,7 @@
         <td>
             <div id="product_2_title"></div>
             <div id="product_2_details"></div>
+            <div id="product_2_status"></div>
             <button class="btn btn-danger">Add to Cart</button>
         </td>
     </tr>
@@ -78,10 +101,16 @@
         <td>
             <div id="product_3_title"></div>
             <div id="product_3_details"></div>
+            <div id="product_3_status"></div>
             <button class="btn btn-danger">Add to Cart</button>
         </td>
-    </tr>     -->
+    </tr>
 </table>
+</div>
+<div class="col-md-2 visible-lg visible-md">
+    <br/>
+    <img src="img/project.jpg" alt="Target Ad"/>
+</div>
 
 </body>
 </html>
